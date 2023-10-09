@@ -9,12 +9,25 @@ program juego {
 	
 	game.ground("imagenes_Juego/fondo.png")
 	
+
+	
 	//keyboard.up().onPressDo( { nave.moverseHaciaArriba() } )
 	//keyboard.down().onPressDo( { nave.moverseHaciaAbajo() } )
-	keyboard.left().onPressDo( { nave.moverseHaciaIzquierda() } )
-	keyboard.right().onPressDo( { nave.moverseHaciaDerecha() } )
+	keyboard.left().onPressDo( { naveCheta.moverseHaciaIzquierda() } )
+	keyboard.right().onPressDo( { naveCheta.moverseHaciaDerecha() } )
 	
-	game.addVisual(nave)
-	game.addVisual(nave2)
+	keyboard.a().onPressDo( { naveWhite.moverseHaciaIzquierda() } )
+	keyboard.d().onPressDo( { naveWhite.moverseHaciaDerecha() } )
+	
+	
+	game.addVisual(alien)
+	game.addVisual(naveCheta)
+	game.addVisual(naveWhite)
+	
+	//game.addVisual(alien)
+  // cada dos segundos muevo la caja
+  	game.onTick(2000, "movimiento", { alien.movete() })
+  //
+	
 	game.start()
 }

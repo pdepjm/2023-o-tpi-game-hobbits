@@ -4,8 +4,8 @@ import SpaceObjects.*
 program juego {
 	game.title("Space Invader")
 	
-	game.width(20)
-	game.height(10)
+	game.width(25)
+	game.height(12)
 	
 	game.ground("imagenes_Juego/fondo.png")
 	
@@ -18,11 +18,15 @@ program juego {
 	
 	keyboard.a().onPressDo( { naveWhite.moverseHaciaIzquierda() } )
 	keyboard.d().onPressDo( { naveWhite.moverseHaciaDerecha() } )
+	// al apretar espacio dispara
+	keyboard.space().onPressDo( { naveCheta.disparar(bala)})
 	
 	
 	game.addVisual(alien)
 	game.addVisual(naveCheta)
 	game.addVisual(naveWhite)
+	// visual provisoria
+	game.addVisual(bala)
 	
 	//game.addVisual(alien)
   // cada dos segundos muevo la caja

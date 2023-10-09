@@ -30,6 +30,10 @@ object naveCheta{
 	method moverseHaciaDerecha(){
 		self.position(position.right(1))
 	}
+	method disparar(bala){
+		bala.position(position.up(1).right(1))
+		game.onTick(1000,"disparo",{ bala.disparo()})
+	}
 	
 	method image() = "imagenes_Juego/nave-cheta.png"
 
@@ -66,4 +70,15 @@ object nave2 {
 	
 	method image() = "imagenes_Juego/nave.png"
 
+}
+
+object bala {
+	var property position = self.posicionInicial()
+	method posicionInicial() = game.at(-1,0)
+	method disparo() {
+		position = position.up(1)
+		if(position.y() == 12)
+			position = self.posicionInicial()
+	}
+	method image() = "imagenes_Juego/bala.png"
 }

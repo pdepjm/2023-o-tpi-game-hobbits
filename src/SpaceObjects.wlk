@@ -31,10 +31,13 @@ object naveCheta{
 		self.position(position.right(1))
 	}
 	method disparar(bala){
-		bala.position(position.up(1).right(1))
-		game.onTick(1000,"disparo",{ bala.disparo()})
+		if(bala.position().x() == -1 /*bala.posicionInicial()*/){ 
+		//solo dispara si la bala esta en pos inicial
+		//si no esta en pos inicial, significa q esta volando todavia
+			bala.position(position.up(1).right(1))
+			game.onTick(1000,"disparo",{ bala.disparo()})
+		}
 	}
-	
 	method image() = "imagenes_Juego/nave-cheta.png"
 
 }
@@ -73,12 +76,15 @@ object nave2 {
 }
 
 object bala {
+	// arranca fuera de tablero
 	var property position = self.posicionInicial()
 	method posicionInicial() = game.at(-1,0)
 	method disparo() {
 		position = position.up(1)
-		if(position.y() == 12)
+		// cuando llega a la altura maxima del tablero vuelve a pos inicial
+		if(position.y() == 12) {
 			position = self.posicionInicial()
+			}
 	}
 	method image() = "imagenes_Juego/bala.png"
 }

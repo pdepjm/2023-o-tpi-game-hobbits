@@ -18,20 +18,23 @@ program juego {
 	
 	keyboard.a().onPressDo( { naveWhite.moverseHaciaIzquierda() } )
 	keyboard.d().onPressDo( { naveWhite.moverseHaciaDerecha() } )
+	
 	// al apretar espacio dispara
 	keyboard.space().onPressDo( { naveCheta.disparar(bala)})
+	 
+	
 	
 	
 	game.addVisual(alien)
 	game.addVisual(naveCheta)
 	game.addVisual(naveWhite)
-	// visual provisoria
 	game.addVisual(bala)
 	
-	//game.addVisual(alien)
-  // cada dos segundos muevo la caja
-  	game.onTick(2000, "movimiento", { alien.movete() })
-  //
+    // cada dos segundos se mueve el alien
+  	//game.onTick(2000, "movimiento", { alien.movete() }) ESTA COMENTADO PARA PROBAR LA COLISION
+  	
+  	// colision de bala con alien
+    game.whenCollideDo(bala, { enemigo => enemigo.recibirDisparo()})  
 	
 	game.start()
 }

@@ -2,8 +2,11 @@ import wollok.game.*
 
 object alien {
 
-	var property position = game.at(0,10)
+	//var property position = game.at(0,10) ORIGINAL
+	var property position = game.at(5,5) // POSICION DE PRUEBA DE COLISION
 	//method position() = game.center()
+	
+	var vida = 100
 	
  	method movete() {
     const x = 0.randomUpTo(game.width()).truncate(0)
@@ -13,6 +16,18 @@ object alien {
     // const y = (0.. game.height()-1).anyOne() 
     position = game.at(x,y) 
   }
+    method recibirDisparo(){
+    	vida = vida - 50
+    	//game.removeTickEvent("disparo") esto deberia detener el movimiento de la bala para que vuelva a su posicion inicial, PERO DA ERROR
+    	bala.posicionInicial()
+    	if(vida <= 0)
+    		self.morir()
+    }
+	
+	method morir(){
+		//game.removeTickEvent("movimiento") detiene el movimiento del alien, SI SE ACTIVA EL MOVIMIENTO ALEATORIO DEL ALIEN ACTIVAR ESTO TMB
+		position = game.at(0,-10) // lo envia fuera del tablero, simulando su muerte
+	}
 	
 	method image() = "imagenes_Juego/alien.png"
 
@@ -31,11 +46,11 @@ object naveCheta{
 		self.position(position.right(1))
 	}
 	method disparar(bala){
-		if(bala.position().x() == -1 /*bala.posicionInicial()*/){ 
+		if(bala.position().x() == -1 ){ 
 		//solo dispara si la bala esta en pos inicial
 		//si no esta en pos inicial, significa q esta volando todavia
 			bala.position(position.up(1).right(1))
-			game.onTick(1000,"disparo",{ bala.disparo()})
+			game.onTick(250,"disparo",{ bala.disparo()})
 		}
 	}
 	method image() = "imagenes_Juego/nave-cheta.png"
@@ -81,10 +96,10 @@ object bala {
 	method posicionInicial() = game.at(-1,0)
 	method disparo() {
 		position = position.up(1)
-		// cuando llega a la altura maxima del tablero vuelve a pos inicial
-		if(position.y() == 12) {
-			position = self.posicionInicial()
+		if(position.y() == 12) { 
+			position = self.posicionInicial() // cuando llega a la altura maxima del tablero vuelve a pos inicial
+			game.removeTickEvent("disparo") // reinicia el tick, sino se acoplan
 			}
 	}
-	method image() = "imagenes_Juego/bala.png"
+	method image() = "imagenes_Juego/bala.png" // hay q cambiarla
 }

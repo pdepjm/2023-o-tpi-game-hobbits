@@ -1,6 +1,27 @@
 import wollok.game.*
 import SpaceObjects.*
- 
+import enemigos.*
+import enemigos.*
+
+
+object interfaz {
+	method empezarJuego(){
+		game.onTick(2000, "movimiento1", { alien1.movete() })
+  		game.onTick(2000, "movimiento3", { alien3.movete() })
+  		game.onTick(2000, "movimiento2", { alien2.movete() })
+  		keyboard.left().onPressDo( { naveCheta.moverseHaciaIzquierda() } )
+		keyboard.right().onPressDo( { naveCheta.moverseHaciaDerecha() } )
+		keyboard.space().onPressDo( { naveCheta.disparar(bala)})
+		start.position(game.at(500,0))
+	}
+}
+
+object start {
+	var property position = game.at(-1,2)
+	method image() = "imagenes_Juego/start1.png"
+}
+
+
 program juego {
 	game.title("Space Invader")
 	
@@ -9,29 +30,34 @@ program juego {
 	
 	game.ground("imagenes_Juego/fondo.png")
 	
-
+	// CON ENTER ARRANCA EL JUEGO
+	keyboard.enter().onPressDo( { interfaz.empezarJuego()})
+	
 	
 	//keyboard.up().onPressDo( { nave.moverseHaciaArriba() } )
 	//keyboard.down().onPressDo( { nave.moverseHaciaAbajo() } )
-	keyboard.left().onPressDo( { naveCheta.moverseHaciaIzquierda() } )
-	keyboard.right().onPressDo( { naveCheta.moverseHaciaDerecha() } )
+	//keyboard.left().onPressDo( { naveCheta.moverseHaciaIzquierda() } )
+	//keyboard.right().onPressDo( { naveCheta.moverseHaciaDerecha() } )
 	
 	keyboard.a().onPressDo( { naveWhite.moverseHaciaIzquierda() } )
 	keyboard.d().onPressDo( { naveWhite.moverseHaciaDerecha() } )
 	
 	// al apretar espacio dispara
-	keyboard.space().onPressDo( { naveCheta.disparar(bala)})
-	 
+	//keyboard.space().onPressDo( { naveCheta.disparar(bala)})
 	
 	
-	
-	game.addVisual(alien)
+	game.addVisual(alien1)
+	game.addVisual(alien2)
+	game.addVisual(alien3)
 	game.addVisual(naveCheta)
 	game.addVisual(naveWhite)
 	game.addVisual(bala)
+	game.addVisual(start)
 	
     // cada dos segundos se mueve el alien
-  	//game.onTick(2000, "movimiento", { alien.movete() }) ESTA COMENTADO PARA PROBAR LA COLISION
+  	//game.onTick(2000, "movimiento1", { alien1.movete() })
+  	//game.onTick(2000, "movimiento3", { alien3.movete() })
+  	//game.onTick(2000, "movimiento2", { alien2.movete() }) //ESTA COMENTADO PARA PROBAR LA COLISION
   	
   	// colision de bala con alien
     game.whenCollideDo(bala, { enemigo => enemigo.recibirDisparo()})  

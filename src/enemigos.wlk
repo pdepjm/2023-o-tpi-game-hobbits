@@ -1,10 +1,40 @@
 import SpaceObjects.*
 import wollok.game.*
 
-/*object enemigos {
-	const enem = [alien1,alien2,alien3]
-}*/
 
+class Alien {
+	//var property position = game.at(0,10) ORIGINAL
+	var property position = game.at(11,7) // POSICION DE PRUEBA DE COLISION
+	var numero 
+	
+	var vida = 100
+	
+ 	method movete() {
+    const x = 0.randomUpTo(game.width()-2).truncate(0)
+    const y = 5.randomUpTo(game.height()-2).truncate(0)
+    position = game.at(x,y) 
+  }
+    method recibirDisparo(){
+    	vida = vida - 100
+    	bala.position(game.at(-1,0))
+    	if(vida <= 0)
+    		self.morir()
+    }
+	
+	method morir(){
+		game.removeTickEvent("movimiento" + numero) //detiene el movimiento del alien, SI SE ACTIVA EL MOVIMIENTO ALEATORIO DEL ALIEN ACTIVAR ESTO TMB
+		position = game.at(0,-10) // lo envia fuera del tablero, simulando su muerte
+	}
+	
+	method image() = "imagenes_Juego/alien.png"
+}
+
+const alien1 = new Alien(position=game.at(11,7),numero=1)
+const alien2 = new Alien(position=game.at(4,7),numero=2)
+const alien3 = new Alien(position=game.at(18,7),numero=3)
+
+
+/* ALIEN VIEJOS 
 object alien1 {
 
 	//var property position = game.at(0,10) ORIGINAL
@@ -87,4 +117,4 @@ object alien3 {
 		position = game.at(0,-10) // lo envia fuera del tablero, simulando su muerte
 	}
 	method image() = "imagenes_Juego/alien.png"
-}
+}*/

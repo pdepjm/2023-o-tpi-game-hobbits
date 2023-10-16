@@ -1,23 +1,35 @@
 import wollok.game.*
 import SpaceObjects.*
 import enemigos.*
-import enemigos.*
 
 
 object interfaz {
 	method empezarJuego(){
+		self.comenzarMovimiento()
+  		self.desbloquearTeclas()
+		self.quitarStart()
+	}
+	method comenzarMovimiento(){
 		game.onTick(2000, "movimiento1", { alien1.movete() })
   		game.onTick(2000, "movimiento3", { alien3.movete() })
   		game.onTick(2000, "movimiento2", { alien2.movete() })
-  		keyboard.left().onPressDo( { naveCheta.moverseHaciaIzquierda() } )
+	}
+	method quitarStart(){
+		start.fueraStart()
+	}
+	method desbloquearTeclas(){
+		keyboard.left().onPressDo( { naveCheta.moverseHaciaIzquierda() } )
 		keyboard.right().onPressDo( { naveCheta.moverseHaciaDerecha() } )
 		keyboard.space().onPressDo( { naveCheta.disparar(bala)})
-		start.position(game.at(500,0))
 	}
 }
 
+
 object start {
 	var property position = game.at(-1,2)
+	method fueraStart() {
+		position = game.at(500,0)
+	}
 	method image() = "imagenes_Juego/start1.png"
 }
 
@@ -41,6 +53,7 @@ program juego {
 	
 	keyboard.a().onPressDo( { naveWhite.moverseHaciaIzquierda() } )
 	keyboard.d().onPressDo( { naveWhite.moverseHaciaDerecha() } )
+	
 	
 	// al apretar espacio dispara
 	//keyboard.space().onPressDo( { naveCheta.disparar(bala)})

@@ -8,6 +8,7 @@ object interfaz {
 		self.comenzarMovimiento()
   		self.desbloquearTeclas()
 		self.quitarStart()
+		instruccion.quitar()
 		game.addVisual(reloj)
 		reloj.iniciar()
 		game.addVisual(contador)
@@ -71,6 +72,7 @@ program juego {
 	//game.addVisual(naveWhite)
 	game.addVisual(bala)
 	game.addVisual(start)
+	game.addVisual(instruccion)
 	
     // cada dos segundos se mueve el alien
   	//game.onTick(2000, "movimiento1", { alien1.movete() })

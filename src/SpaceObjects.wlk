@@ -120,3 +120,16 @@ object puntuacion {
 	method text() = puntuacion.toString()
 	method position() = contador.position().left(1)
 }
+
+object instruccion {
+	var property position = game.at(4,2)
+	const movimiento = 	
+"MOVE WITH  <-  ->
+SHOOT WITH SPACE
+PRESS ENTER TO START"
+	method text() = movimiento.toString()
+	method quitar(){
+		position = game.at(-5,-5)
+	} 
+	
+}

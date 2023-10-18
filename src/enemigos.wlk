@@ -17,8 +17,10 @@ class Alien {
     method recibirDisparo(){
     	vida = vida - 100
     	bala.position(game.at(-1,0))
-    	if(vida <= 0)
-    		self.morir()
+    	if(vida <= 0){
+    		//self.morir()
+    		contador.sumarPunto()
+    	}
     }
 	
 	method morir(){

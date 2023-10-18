@@ -8,6 +8,11 @@ object interfaz {
 		self.comenzarMovimiento()
   		self.desbloquearTeclas()
 		self.quitarStart()
+		game.addVisual(reloj)
+		reloj.iniciar()
+		game.addVisual(contador)
+		game.addVisual(tiempo)
+		game.addVisual(puntuacion)
 	}
 	method comenzarMovimiento(){
 		game.onTick(2000, "movimiento1", { alien1.movete() })
@@ -63,7 +68,7 @@ program juego {
 	game.addVisual(alien2)
 	game.addVisual(alien3)
 	game.addVisual(naveCheta)
-	game.addVisual(naveWhite)
+	//game.addVisual(naveWhite)
 	game.addVisual(bala)
 	game.addVisual(start)
 	

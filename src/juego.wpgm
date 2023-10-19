@@ -12,7 +12,7 @@ object interfaz {
 		game.addVisual(reloj)
 		reloj.iniciar()
 		game.addVisual(contador)
-		game.addVisual(tiempo)
+		game.addVisual(tiempo_)
 		game.addVisual(puntuacion)
 	}
 	method comenzarMovimiento(){
@@ -28,6 +28,22 @@ object interfaz {
 		keyboard.right().onPressDo( { naveCheta.moverseHaciaDerecha() } )
 		keyboard.space().onPressDo( { naveCheta.disparar(bala)})
 	}
+	method restart(){
+		alien1.position(game.at(11,7))
+		alien2.position(game.at(4,7))
+		alien3.position(game.at(18,7))
+		//instruccion.posicionInicial() NO TIENE MUCHO SENTIDO
+		//start.posicionInicial()
+		reloj.reiniciar()
+		contador.reiniciar()
+		reloj.posicionInicial()
+		puntuacion.posicionInicial()
+		reloj.iniciar()
+		self.comenzarMovimiento()
+		gameOver.quitar()
+		instruccionRestart.quitar()
+		
+	}
 }
 
 
@@ -35,6 +51,9 @@ object start {
 	var property position = game.at(-1,2)
 	method fueraStart() {
 		position = game.at(500,0)
+	}
+	method posicionInicial(){
+		position = game.at(-1,2)
 	}
 	method image() = "imagenes_Juego/start1.png"
 }
@@ -50,6 +69,7 @@ program juego {
 	
 	// CON ENTER ARRANCA EL JUEGO
 	keyboard.enter().onPressDo( { interfaz.empezarJuego()})
+	keyboard.r().onPressDo( { interfaz.restart()})
 	
 	
 	//keyboard.up().onPressDo( { nave.moverseHaciaArriba() } )
@@ -69,10 +89,11 @@ program juego {
 	game.addVisual(alien2)
 	game.addVisual(alien3)
 	game.addVisual(naveCheta)
-	//game.addVisual(naveWhite)
+	game.addVisual(gameOver)
 	game.addVisual(bala)
 	game.addVisual(start)
 	game.addVisual(instruccion)
+	game.addVisual(instruccionRestart)
 	
     // cada dos segundos se mueve el alien
   	//game.onTick(2000, "movimiento1", { alien1.movete() })

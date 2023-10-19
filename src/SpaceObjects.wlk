@@ -64,14 +64,14 @@ object bala {
 	method posicionInicial() = game.at(-1,0)
 	method disparo() {
 		position = position.up(1)
-		if(position.y() == 12) { 
+		if(position.y() == game.height()) { 
 			position = self.posicionInicial() // cuando llega a la altura maxima del tablero vuelve a pos inicial
 			game.removeTickEvent("disparo") // reinicia el tick, sino se acoplan
 			}
 	}
 	method nada(){}//={}
 	method image() = "balas/bala_blanca2.png" // hay q cambiarla
-}
+} 
 
 object contador {
 	var contador = 0
@@ -105,7 +105,7 @@ object reloj {
 	}
 	method pasarTiempo() {
 		tiempo = tiempo +1
-		if(tiempo==10)
+		if(tiempo==50)
 			self.detener()
 	}
 	method iniciar(){
@@ -120,9 +120,9 @@ object reloj {
 		game.removeTickEvent("movimiento1")
 		game.removeTickEvent("movimiento2")
 		game.removeTickEvent("movimiento3")
-		keyboard.left().onPressDo({bala.nada()}) // la idea es que esto deje de mover
-		keyboard.right().onPressDo({bala.nada()}) // al alien pero no funca
-		keyboard.space().onPressDo({bala.nada()})
+		//keyboard.left().onPressDo({bala.nada()}) // la idea es que esto deje de mover
+		//keyboard.right().onPressDo({bala.nada()}) // al alien pero no funca
+		//keyboard.space().onPressDo({bala.nada()})
 		gameOver.colocar()
 		self.posicionFinal()
 		//tiempo_.posicionFinal()

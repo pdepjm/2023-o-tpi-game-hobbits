@@ -1,7 +1,9 @@
 import wollok.game.*
-import SpaceObjects.*
+import Naves.*
 import enemigos.*
 import sonidos.*
+import Naves.*
+import Configuracion.*
 
 object interfaz {
 	method empezarJuego(){
@@ -24,9 +26,9 @@ object interfaz {
 		start.fueraStart()
 	}
 	method desbloquearTeclas(){
-		keyboard.left().onPressDo( { naveCheta.moverseHaciaIzquierda() } )
-		keyboard.right().onPressDo( { naveCheta.moverseHaciaDerecha() } )
-		keyboard.space().onPressDo( { naveCheta.disparar(bala)})
+		keyboard.left().onPressDo( { naveBlack.moverseHaciaIzquierda() } )
+		keyboard.right().onPressDo( { naveBlack.moverseHaciaDerecha() } )
+		keyboard.space().onPressDo( { naveBlack.disparar(bala)})
 		keyboard.space().onPressDo( { disparo.play()})
 	}
 	method restart(){
@@ -39,7 +41,7 @@ object interfaz {
 		contador.reiniciar()
 		reloj.posicionInicial()
 		puntuacion.posicionInicial()
-		reloj.iniciar()
+		reloj.iniciar()	
 		self.comenzarMovimiento()
 		gameOver.quitar()
 		instruccionRestart.quitar()
@@ -69,12 +71,11 @@ object start {
 }
 */
 
-
 program juego {
 	game.title("Space Invader")
-	
-	game.width(25)
-	game.height(12)
+	game.cellSize(100)
+	game.width(15)
+	game.height(8)
 	
 	game.ground("imagenes/fondo.png")
 	
@@ -101,7 +102,7 @@ program juego {
 	game.addVisual(alien1)
 	game.addVisual(alien2)
 	game.addVisual(alien3)
-	game.addVisual(naveCheta)
+	game.addVisual(naveBlack)
 	game.addVisual(gameOver)
 	game.addVisual(bala)
 	game.addVisual(start)

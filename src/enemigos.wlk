@@ -1,7 +1,6 @@
-import SpaceObjects.*
+import Naves.*
 import wollok.game.*
-
-
+import Configuracion.*
 class Alien {
 	//var property position = game.at(0,10) ORIGINAL
 	var property position = game.at(11,7) // POSICION DE PRUEBA DE COLISION
@@ -30,7 +29,7 @@ class Alien {
 		position = game.at(0,-10) // lo envia fuera del tablero, simulando su muerte
 	}
 	
-	method image() = "imagenes/alien.png"
+	method image() = "imagenes/alien100.png"
 }
 
 const alien1 = new Alien(position=game.at(11,7),numero=1)

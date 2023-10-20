@@ -1,7 +1,7 @@
 import wollok.game.*
 import SpaceObjects.*
 import enemigos.*
-
+import sonidos.*
 
 object interfaz {
 	method empezarJuego(){
@@ -27,6 +27,7 @@ object interfaz {
 		keyboard.left().onPressDo( { naveCheta.moverseHaciaIzquierda() } )
 		keyboard.right().onPressDo( { naveCheta.moverseHaciaDerecha() } )
 		keyboard.space().onPressDo( { naveCheta.disparar(bala)})
+		keyboard.space().onPressDo( { disparo.play()})
 	}
 	method restart(){
 		alien1.position(game.at(11,7))
@@ -55,8 +56,18 @@ object start {
 	method posicionInicial(){
 		position = game.at(-1,2)
 	}
-	method image() = "imagenes_Juego/start1.png"
+	method image() = "imagenes/start1.png"
 }
+
+
+
+/*program soundProgram {
+	
+	const rain = game.sound("light-rain.mp3")
+	rain.shouldLoop(true)
+	game.schedule(500, { rain.play()} )
+}
+*/
 
 
 program juego {
@@ -65,7 +76,7 @@ program juego {
 	game.width(25)
 	game.height(12)
 	
-	game.ground("imagenes_Juego/fondo.png")
+	game.ground("imagenes/fondo.png")
 	
 	// CON ENTER ARRANCA EL JUEGO
 	keyboard.enter().onPressDo( { interfaz.empezarJuego()})
@@ -79,12 +90,14 @@ program juego {
 	
 	keyboard.a().onPressDo( { naveWhite.moverseHaciaIzquierda() } )
 	keyboard.d().onPressDo( { naveWhite.moverseHaciaDerecha() } )
+	//AUDIO/////////////
 	
+	const fondoEspacio = game.sound("sonidos/sonido_fondo.wav")
+	fondoEspacio.shouldLoop(true)
+	game.schedule(0, { fondoEspacio.play()} )
+	game.schedule(50000, { fondoEspacio.stop()} )
 	
-	// al apretar espacio dispara
-	//keyboard.space().onPressDo( { naveCheta.disparar(bala)})
-	
-	
+	//////////////////
 	game.addVisual(alien1)
 	game.addVisual(alien2)
 	game.addVisual(alien3)

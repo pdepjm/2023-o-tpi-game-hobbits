@@ -30,7 +30,7 @@ class Alien {
 		position = game.at(0,-10) // lo envia fuera del tablero, simulando su muerte
 	}
 	
-	method image() = "imagenes_Juego/alien.png"
+	method image() = "imagenes/alien.png"
 }
 
 const alien1 = new Alien(position=game.at(11,7),numero=1)

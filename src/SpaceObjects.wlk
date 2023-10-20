@@ -1,7 +1,6 @@
 import wollok.game.*
 
 
-
 object naveCheta{
 
 	var property position = game.at(11,0)
@@ -21,7 +20,7 @@ object naveCheta{
 			game.onTick(50,"disparo",{ bala.disparo()})
 		}
 	}
-	method image() = "imagenes_Juego/nave-cheta.png"
+	method image() = "imagenes/nave-cheta.png"
 
 }
 
@@ -38,7 +37,7 @@ object naveWhite{
 		self.position(position.right(1))
 	}
 	
-	method image() = "imagenes_Juego/nave-white.png"
+	method image() = "imagenes/nave-white.png"
 
 }
 object nave2 {
@@ -54,7 +53,7 @@ object nave2 {
 		self.position(position.right(1))
 	}
 	
-	method image() = "imagenes_Juego/nave.png"
+	method image() = "imagenes/nave.png"
 
 }
 
@@ -174,7 +173,7 @@ object gameOver{
 	method quitar(){
 		position = game.at(-55,200)
 	}
-	method image() = "imagenes_Juego/gameOver.png"
+	method image() = "imagenes/gameOver.png"
 	method colocar(){
 		position = game.at(0,-6)
 	}

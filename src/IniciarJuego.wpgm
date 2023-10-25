@@ -5,61 +5,6 @@ import sonidos.*
 import Naves.*
 import Configuracion.*
 
-object interfaz {
-	method empezarJuego(){
-		self.comenzarMovimiento()
-  		self.desbloquearTeclas()
-		self.quitarStart()
-		instruccion.quitar()
-		game.addVisual(reloj)
-		reloj.iniciar()
-		game.addVisual(contador)
-		game.addVisual(tiempo_)
-		game.addVisual(puntuacion)
-	}
-	method comenzarMovimiento(){
-		game.onTick(2000, "movimiento1", { alien1.movete() })
-  		game.onTick(2000, "movimiento3", { alien3.movete() })
-  		game.onTick(2000, "movimiento2", { alien2.movete() })
-	}
-	method quitarStart(){
-		start.fueraStart()
-	}
-	method desbloquearTeclas(){
-		keyboard.left().onPressDo( { naveBlack.moverseHaciaIzquierda() } )
-		keyboard.right().onPressDo( { naveBlack.moverseHaciaDerecha() } )
-		keyboard.space().onPressDo( { naveBlack.disparar(bala)})
-		keyboard.space().onPressDo( { disparo.play()})
-	}
-	method restart(){
-		alien1.position(game.at(11,7))
-		alien2.position(game.at(4,7))
-		alien3.position(game.at(18,7))
-		//instruccion.posicionInicial() NO TIENE MUCHO SENTIDO
-		//start.posicionInicial()
-		reloj.reiniciar()
-		contador.reiniciar()
-		reloj.posicionInicial()
-		puntuacion.posicionInicial()
-		reloj.iniciar()	
-		self.comenzarMovimiento()
-		gameOver.quitar()
-		instruccionRestart.quitar()
-		
-	}
-}
-
-
-object start {
-	var property position = game.at(-1,2)
-	method fueraStart() {
-		position = game.at(500,0)
-	}
-	method posicionInicial(){
-		position = game.at(-1,2)
-	}
-	method image() = "imagenes/start1.png"
-}
 
 
 
@@ -74,10 +19,12 @@ object start {
 program juego {
 	game.title("Space Invader")
 	game.cellSize(100)
-	game.width(15)
-	game.height(8)
+	game.width(13)
+	game.height(6)
 	
 	game.ground("imagenes/fondo.png")
+	start.posicionInicial()
+	instruccion.posicionInicial()
 	
 	// CON ENTER ARRANCA EL JUEGO
 	keyboard.enter().onPressDo( { interfaz.empezarJuego()})
@@ -89,8 +36,8 @@ program juego {
 	//keyboard.left().onPressDo( { naveCheta.moverseHaciaIzquierda() } )
 	//keyboard.right().onPressDo( { naveCheta.moverseHaciaDerecha() } )
 	
-	keyboard.a().onPressDo( { naveWhite.moverseHaciaIzquierda() } )
-	keyboard.d().onPressDo( { naveWhite.moverseHaciaDerecha() } )
+	//keyboard.a().onPressDo( { naveWhite.moverseHaciaIzquierda() } )
+	//keyboard.d().onPressDo( { naveWhite.moverseHaciaDerecha() } )
 	//AUDIO/////////////
 	
 	const fondoEspacio = game.sound("sonidos/sonido_fondo.wav")
@@ -103,11 +50,11 @@ program juego {
 	game.addVisual(alien2)
 	game.addVisual(alien3)
 	game.addVisual(naveBlack)
-	game.addVisual(gameOver)
-	game.addVisual(bala)
-	game.addVisual(start)
-	game.addVisual(instruccion)
-	game.addVisual(instruccionRestart)
+	//game.addVisual(gameOver)
+	//game.addVisual(bala)
+	//game.addVisual(start)
+	//game.addVisual(instruccion)
+	//game.addVisual(instruccionRestart)
 	
     // cada dos segundos se mueve el alien
   	//game.onTick(2000, "movimiento1", { alien1.movete() })
@@ -115,7 +62,7 @@ program juego {
   	//game.onTick(2000, "movimiento2", { alien2.movete() }) //ESTA COMENTADO PARA PROBAR LA COLISION
   	
   	// colision de bala con alien
-    game.whenCollideDo(bala, { enemigo => enemigo.recibirDisparo()})  
+      
 	
 	game.start()
 }

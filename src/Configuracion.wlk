@@ -1,4 +1,9 @@
 import wollok.game.*
+import wollok.game.*
+import Naves.*
+import enemigos.*
+import sonidos.*
+import Naves.*
 
 object contador {
 	var contador = 0
@@ -17,6 +22,7 @@ object contador {
 	method reiniciar(){
 		contador = 0
 	}
+	method recibirDisparo(){}
 }
 
 object reloj {
@@ -28,11 +34,11 @@ object reloj {
 		position = game.at(1, game.height()-1)
 	} 
 	method posicionFinal(){
-		position = game.at(9,9)
+		position = game.at(5,4)
 	}
 	method pasarTiempo() {
 		tiempo = tiempo +1
-		if(tiempo==50)
+		if(tiempo==5)
 			self.detener()
 	}
 	method iniciar(){
@@ -44,77 +50,132 @@ object reloj {
 	}
 	method detener(){
 		game.removeTickEvent("tiempo")
-		game.removeTickEvent("movimiento1")
-		game.removeTickEvent("movimiento2")
-		game.removeTickEvent("movimiento3")
-		//keyboard.left().onPressDo({bala.nada()}) // la idea es que esto deje de mover
-		//keyboard.right().onPressDo({bala.nada()}) // al alien pero no funca
-		//keyboard.space().onPressDo({bala.nada()})
-		gameOver.colocar()
 		self.posicionFinal()
-		//tiempo_.posicionFinal()
-		puntuacion.posicionFinal()
-		instruccionRestart.posicionFinal()
+		interfaz.posicionesFinales()
 	}
+	method recibirDisparo(){}
 }
 
 object tiempo_ {
 	var property position
-	const textoReloj = "Tiempo:"
+	const textoReloj = "   Tiempo:"
 	method text() = textoReloj.toString()
 	method position() = reloj.position().left(1)
 	method posicionFinal(){
 		self.position(game.at(8,8))
 	}
+	method recibirDisparo(){}
 }
 
 object puntuacion {
-	const puntuacion = "Puntuación:"
+	const puntuacion = "          Puntuación:"
 	var property position = reloj.position().down(1).left(1)
 	method text() = puntuacion.toString()
 	method posicionInicial(){
 		position = reloj.position().down(1).left(1)
 	} 
 	method posicionFinal(){
-		position = game.at(14,9)//.rigth(3)
+		position = reloj.position().right(2)//.rigth(3)
 	}
+	method recibirDisparo(){}
 }
 
 object instruccion {
-	var property position = game.at(4,2)
+	var property position = game.at(3,1)
 	const movimiento = 	
 "MOVE WITH  <-  ->
 SHOOT WITH SPACE
 PRESS ENTER TO START"
 	method text() = movimiento.toString()
 	method posicionInicial(){
-		position = game.at(4,2)
+		game.addVisual(self)
 	}
 	method quitar(){
-		position = game.at(-5,-5)
+		game.removeVisual(self)
 	} 
 	
 }
 
 object gameOver{
-	var property position = game.at(-55,200)
+	var property position = game.at(0,-3)
 	method quitar(){
-		position = game.at(-55,200)
+		game.removeVisual(self)
 	}
 	method image() = "imagenes/gameOver.png"
 	method colocar(){
-		position = game.center()
+		game.addVisual(self)
 	}
+	method recibirDisparo(){}
 }
 
 object instruccionRestart {
-	var property position = game.at(-7,-7)
+	var property position = game.center().up(2)
 	const instruccionRestart = "           PRESS R TO RESTART"
 	method text() = instruccionRestart.toString()
 	method posicionFinal(){
-		position = game.at(11,10)
+		game.addVisual(self)
 	}
 	method quitar(){
-		position = game.at(-7,-7)
+		game.removeVisual(self)
 	} 
+	method recibirDisparo(){}
+}
+
+object interfaz {
+	method empezarJuego(){
+		self.comenzarMovimiento()
+  		self.desbloquearTeclas()
+		start.fueraStart()
+		instruccion.quitar()
+		game.addVisual(reloj)
+		reloj.iniciar()
+		game.addVisual(contador)
+		game.addVisual(tiempo_)
+		game.addVisual(puntuacion)
+	}
+	method comenzarMovimiento(){
+		game.onTick(2000, "movimiento1", { alien1.movete() })
+  		game.onTick(2000, "movimiento3", { alien3.movete() })
+  		game.onTick(2000, "movimiento2", { alien2.movete() })
+	}
+	method desbloquearTeclas(){
+		keyboard.left().onPressDo( { naveBlack.moverseHaciaIzquierda() } )
+		keyboard.right().onPressDo( { naveBlack.moverseHaciaDerecha() } )
+		keyboard.space().onPressDo( { naveBlack.disparar()})
+		keyboard.space().onPressDo( { disparo.play()})
+	}
+	method posicionesFinales(){
+		game.removeTickEvent("movimiento1")
+		game.removeTickEvent("movimiento2")
+		game.removeTickEvent("movimiento3")
+		gameOver.colocar()
+		puntuacion.posicionFinal()
+		instruccionRestart.posicionFinal()
+	}
+	method restart(){
+		alien1.position(alien2.position().left(3))
+		alien2.position(game.center().up(1))
+		alien3.position(alien2.position().right(3))
+		reloj.reiniciar()
+		contador.reiniciar()
+		reloj.posicionInicial()
+		puntuacion.posicionInicial()
+		reloj.iniciar()	
+		self.comenzarMovimiento()
+		gameOver.quitar()
+		instruccionRestart.quitar()
+		
+	}
+}
+
+
+object start {
+	var property position = game.at(0,1)
+	method fueraStart() {
+		game.removeVisual(self)
+	}
+	method posicionInicial(){
+		game.addVisual(self)
+	}
+	method image() = "imagenes/start1.png"
 }

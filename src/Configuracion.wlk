@@ -16,8 +16,8 @@ object contador {
 		position = puntuacion.position().rigth(1)
 	}*/
 	method position() = puntuacion.position().right(1)
-	method sumarPunto(){
-		contador += 1
+	method sumarPunto(valor){
+		contador += valor
 	}
 	method reiniciar(){
 		contador = 0

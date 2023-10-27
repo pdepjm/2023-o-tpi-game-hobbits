@@ -6,7 +6,7 @@ class Alien {
 	//var property position = game.at(0,10) ORIGINAL
 	var property position = game.at(11,7) // POSICION DE PRUEBA DE COLISION
 	var numero 
-	
+	var puntos = 1
 	var vida = 100
 	
  	method movete() {
@@ -22,7 +22,7 @@ class Alien {
     	self.movete()
     	if(vida <= 0){
     		//self.morir()
-    		contador.sumarPunto()
+    		contador.sumarPunto(puntos)
     	}
     }
 	
@@ -33,6 +33,32 @@ class Alien {
 	
 	method image() = "imagenes/alien100.png"
 }
+
+object objetoBonus
+{
+		//var property position = game.at(0,10) ORIGINAL
+	var property position = game.at(11,7) // POSICION DE PRUEBA DE COLISION
+	var numero 
+	
+	var vida = 100
+	var puntos = 4
+ 	method movete() {
+    const x = 1.randomUpTo(game.width()-2).truncate(0)
+    const y = 2.randomUpTo(game.height()-2).truncate(0)
+    position = game.at(x,y) 
+  }
+    method recibirDisparo(){
+    	vida = vida - 100
+    	//bala.position(game.at(-1,0))
+    	//game.removeVisual(bala1)
+    	game.removeTickEvent("disparo")
+    	self.movete()
+    	if(vida <= 0){
+    		//self.morir()
+    		contador.sumarPunto(puntos)
+    	}
+	
+}}
 
 const alien1 = new Alien(position=alien2.position().left(3),numero=1)
 const alien2 = new Alien(position=game.center().up(1),numero=2)

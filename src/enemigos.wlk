@@ -8,6 +8,7 @@ class Alien {
 	var numero 
 	var puntos 
 	var vida = 100
+	var imagen
 	
  	method movete() {
     const x = 1.randomUpTo(game.width()-2).truncate(0)
@@ -31,13 +32,13 @@ class Alien {
 		position = game.at(0,-10) // lo envia fuera del tablero, simulando su muerte
 	}
 	
-	method image() = "imagenes/alien100.png"
+	method image() = imagen
 }
 
-const alien1 = new Alien(position=alien2.position().left(3),numero=1,puntos=1)
-const alien2 = new Alien(position=game.center().up(1),numero=2,puntos=1)
-const alien3 = new Alien(position=alien2.position().right(3),numero=3,puntos=1)
-const bonus = new Alien(position=alien2.position().right(3),numero=3,puntos=4) //hay que cambiar la imagen y la posicion
+const alien1 = new Alien(position=alien2.position().left(3),numero=1,puntos=1, imagen = "imagenes/alien100.png")
+const alien2 = new Alien(position=game.center().up(1),numero=2,puntos=1,imagen = "imagenes/alien100.png")
+const alien3 = new Alien(position=alien2.position().right(3),numero=3,puntos=1,imagen = "imagenes/alien100.png")
+const bonus = new Alien(position=alien2.position().right(1),numero=3,puntos=4, imagen = "imagenes/alienbonus.png") //hay que cambiar la imagen y la posicion
 
 /* ALIEN VIEJOS 
 object alien1 {

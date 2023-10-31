@@ -71,7 +71,7 @@ class Bala {
 		alien.recibirDisparo(multiplicador)
 	}
 	method nada(){}//={}
-	method image() = "balas/bala_blanca2.png" // hay q cambiarla
+	method image() = "balas/bala_fix.png" // hay q cambiarla
 } 
 
 /* 

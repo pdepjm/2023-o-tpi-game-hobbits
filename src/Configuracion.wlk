@@ -4,6 +4,7 @@ import Naves.*
 import enemigos.*
 import sonidos.*
 import Naves.*
+import powerUp.*
 
 object contador {
 	var contador = 0
@@ -22,7 +23,7 @@ object contador {
 	method reiniciar(){
 		contador = 0
 	}
-	method recibirDisparo(){}
+	method recibirDisparo(mult){}
 }
 
 object reloj {
@@ -38,7 +39,7 @@ object reloj {
 	}
 	method pasarTiempo() {
 		tiempo = tiempo +1
-		if(tiempo==5)
+		if(tiempo==10)
 			self.detener()
 	}
 	method iniciar(){
@@ -53,7 +54,7 @@ object reloj {
 		self.posicionFinal()
 		interfaz.posicionesFinales()
 	}
-	method recibirDisparo(){}
+	method recibirDisparo(mult){}
 }
 
 object tiempo_ {
@@ -64,7 +65,7 @@ object tiempo_ {
 	method posicionFinal(){
 		self.position(game.at(8,8))
 	}
-	method recibirDisparo(){}
+	method recibirDisparo(mult){}
 }
 
 object puntuacion {
@@ -77,7 +78,7 @@ object puntuacion {
 	method posicionFinal(){
 		position = reloj.position().right(2)//.rigth(3)
 	}
-	method recibirDisparo(){}
+	method recibirDisparo(mult){}
 }
 
 object instruccion {
@@ -105,7 +106,7 @@ object gameOver{
 	method colocar(){
 		game.addVisual(self)
 	}
-	method recibirDisparo(){}
+	method recibirDisparo(mult){}
 }
 
 object instruccionRestart {
@@ -118,13 +119,14 @@ object instruccionRestart {
 	method quitar(){
 		game.removeVisual(self)
 	} 
-	method recibirDisparo(){}
+	method recibirDisparo(mult){}
 }
 
 object interfaz {
 	method empezarJuego(){
 		self.comenzarMovimiento()
   		self.desbloquearTeclas()
+  		self.hacerAparecerPowerUps()
 		start.fueraStart()
 		instruccion.quitar()
 		game.addVisual(reloj)
@@ -144,17 +146,24 @@ object interfaz {
 		keyboard.space().onPressDo( { naveBlack.disparar()})
 		keyboard.space().onPressDo( { disparo.play()})
 	}
+	method hacerAparecerPowerUps(){
+		game.onTick(3000,"powerup",{entorno.spawnearPowerUp()})
+	}
 	method posicionesFinales(){
 		game.removeTickEvent("movimiento1")
 		game.removeTickEvent("movimiento2")
 		game.removeTickEvent("movimiento3")
+		game.removeTickEvent("powerup")
 		gameOver.colocar()
 		puntuacion.posicionFinal()
 		instruccionRestart.posicionFinal()
 	}
 	method restart(){
-		alien1.position(alien2.position().left(3))
+		game.clear()
+		game.allVisuals()
+		naveBlack.modificarMultiplicador(1)
 		alien2.position(game.center().up(1))
+		alien1.position(alien2.position().left(3))
 		alien3.position(alien2.position().right(3))
 		reloj.reiniciar()
 		contador.reiniciar()
@@ -162,6 +171,7 @@ object interfaz {
 		puntuacion.posicionInicial()
 		reloj.iniciar()	
 		self.comenzarMovimiento()
+		self.hacerAparecerPowerUps()
 		gameOver.quitar()
 		instruccionRestart.quitar()
 		

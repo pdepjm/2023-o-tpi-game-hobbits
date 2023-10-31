@@ -3,6 +3,7 @@ import Naves.*
 import enemigos.*
 import sonidos.*
 import Naves.*
+import powerUp.*
 import Configuracion.*
 
 
@@ -49,7 +50,6 @@ program juego {
 	game.addVisual(alien1)
 	game.addVisual(alien2)
 	game.addVisual(alien3)
-	game.addVisual(bonus)
 	game.addVisual(naveBlack)
 	//game.addVisual(gameOver)
 	//game.addVisual(bala)

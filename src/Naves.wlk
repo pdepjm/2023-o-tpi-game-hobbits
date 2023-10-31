@@ -1,5 +1,5 @@
 import wollok.game.*
-
+import powerUp.*
 /* 
 object naveBlack{
 
@@ -26,6 +26,7 @@ object naveBlack{
 object naveBlack{
 
 	var property position = game.at(7,0).left(1)
+	var multiplicador = 1
 	
 	method moverseHaciaIzquierda(){
 		self.position(position.left(1))
@@ -40,13 +41,18 @@ object naveBlack{
 	method disparar(){
 			const bala1 = new Bala()
 			game.addVisual(bala1)
-			game.whenCollideDo(bala1, { enemigo => bala1.impactar(enemigo)})
+			game.whenCollideDo(bala1, { enemigo => bala1.impactar(enemigo,multiplicador)})
 			game.onTick(50,"disparo",{ bala1.disparo()})
-			if(position.y() == game.height()) { 
+			if(bala1.position().y() == game.height()) { 
 				game.removeVisual(bala1) // cuando llega a la altura maxima del tablero vuelve a pos inicial
 				game.removeTickEvent("disparo") // reinicia el tick, sino se acoplan
 			}
 	}
+	method recibirPowerUp(powerUp){
+		game.removeVisual(powerUp)
+		self.modificarMultiplicador(powerUp.multiplicador())
+	}
+	method modificarMultiplicador(nuevo_mult){multiplicador = nuevo_mult}
 	method image() = "imagenes/nave-black100.png"
 
 }
@@ -57,10 +63,12 @@ class Bala {
 	method disparo() {
 		position = position.up(1)
 	}
-	method recibirDisparo(){}
-	method impactar(alien){
-		game.removeVisual(self)
-		alien.recibirDisparo()
+	method recibirDisparo(mult){}
+	method impactar(alien,multiplicador){
+		if(game.hasVisual(self))
+		{game.removeVisual(self)}
+		//game.removeTickEvent("disparo")
+		alien.recibirDisparo(multiplicador)
 	}
 	method nada(){}//={}
 	method image() = "balas/bala_blanca2.png" // hay q cambiarla

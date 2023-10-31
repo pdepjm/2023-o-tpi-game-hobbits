@@ -1,6 +1,7 @@
 import Naves.*
 import wollok.game.*
 import Configuracion.*
+import powerUp.*
 
 class Alien {
 	//var property position = game.at(0,10) ORIGINAL
@@ -15,7 +16,7 @@ class Alien {
     const y = 2.randomUpTo(game.height()-2).truncate(0)
     position = game.at(x,y) 
   }
-    method recibirDisparo(){
+    method recibirDisparo(multiplicador){
     	vida = vida - 100
     	//bala.position(game.at(-1,0))
     	//game.removeVisual(bala1)
@@ -23,7 +24,7 @@ class Alien {
     	self.movete()
     	if(vida <= 0){
     		//self.morir()
-    		contador.sumarPunto(puntos)
+    		contador.sumarPunto(puntos*multiplicador)
     	}
     }
 	
@@ -38,7 +39,7 @@ class Alien {
 const alien1 = new Alien(position=alien2.position().left(3),numero=1,puntos=1, imagen = "imagenes/alien100.png")
 const alien2 = new Alien(position=game.center().up(1),numero=2,puntos=1,imagen = "imagenes/alien100.png")
 const alien3 = new Alien(position=alien2.position().right(3),numero=3,puntos=1,imagen = "imagenes/alien100.png")
-const bonus = new Alien(position=alien2.position().right(1),numero=3,puntos=4, imagen = "imagenes/alienbonus.png") //hay que cambiar la imagen y la posicion
+//const bonus = new Alien(position=alien2.position().right(1),numero=3,puntos=4, imagen = "imagenes/alienbonus.png") //hay que cambiar la imagen y la posicion
 
 /* ALIEN VIEJOS 
 object alien1 {

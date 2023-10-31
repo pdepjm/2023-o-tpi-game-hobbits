@@ -159,8 +159,6 @@ object interfaz {
 		instruccionRestart.posicionFinal()
 	}
 	method restart(){
-		game.clear()
-		game.allVisuals()
 		naveBlack.modificarMultiplicador(1)
 		alien2.position(game.center().up(1))
 		alien1.position(alien2.position().left(3))

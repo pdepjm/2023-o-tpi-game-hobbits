@@ -1,5 +1,6 @@
 import wollok.game.*
 import powerUp.*
+import Configuracion.*
 
 /* 
 object naveBlack{
@@ -54,10 +55,16 @@ object naveBlack{
 	}
 	method recibirPowerUp(powerUp){
 		game.removeVisual(powerUp)
+		//game.removeTickEvent("bajar")
 		self.modificarMultiplicador(powerUp.multiplicador())
 		game.schedule(3000,{self.multiplicador(1)})
 		game.addVisual(powerUpx2)
 		game.schedule(3000,{game.removeVisual(powerUpx2)})
+	}
+	method recibirMeteorito(meteorito){
+		game.removeVisual(meteorito)
+		//game.removeTickEvent("bajar1")
+		contador.sumarPunto(-1)
 	}
 	method modificarMultiplicador(nuevo_mult){multiplicador = nuevo_mult}
 	method image() = "imagenes/nave-black100.png"
@@ -74,7 +81,6 @@ class Bala {
 	method impactar(alien,multiplicador){
 		if(game.hasVisual(self))
 		{game.removeVisual(self)}
-		//game.removeTickEvent("disparo")
 		alien.recibirDisparo(multiplicador)
 	}
 	method nada(){}//={}

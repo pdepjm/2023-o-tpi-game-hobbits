@@ -127,6 +127,7 @@ object interfaz {
 		self.comenzarMovimiento()
   		self.desbloquearTeclas()
   		self.hacerAparecerPowerUps()
+  		self.meteoritos()
 		start.fueraStart()
 		instruccion.quitar()
 		game.addVisual(reloj)
@@ -149,11 +150,15 @@ object interfaz {
 	method hacerAparecerPowerUps(){
 		game.onTick(7000,"powerup",{entorno.spawnearPowerUp()})
 	}
+	method meteoritos(){
+		game.onTick(1000,"meteorito",{entorno.spawnearMeteorito()})
+	}
 	method posicionesFinales(){
 		game.removeTickEvent("movimiento1")
 		game.removeTickEvent("movimiento2")
 		game.removeTickEvent("movimiento3")
 		game.removeTickEvent("powerup")
+		game.removeTickEvent("meteorito")
 		gameOver.colocar()
 		puntuacion.posicionFinal()
 		instruccionRestart.posicionFinal()
@@ -170,6 +175,7 @@ object interfaz {
 		reloj.iniciar()	
 		self.comenzarMovimiento()
 		self.hacerAparecerPowerUps()
+		self.meteoritos()
 		gameOver.quitar()
 		instruccionRestart.quitar()
 		

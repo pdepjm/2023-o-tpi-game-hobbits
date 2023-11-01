@@ -27,6 +27,9 @@ object naveBlack{
 
 	var property position = game.at(7,0).left(1)
 	var multiplicador = 1
+	method multiplicador(n){
+		multiplicador = n
+	}
 	
 	method moverseHaciaIzquierda(){
 		self.position(position.left(1))
@@ -51,6 +54,7 @@ object naveBlack{
 	method recibirPowerUp(powerUp){
 		game.removeVisual(powerUp)
 		self.modificarMultiplicador(powerUp.multiplicador())
+		game.schedule(3000,{self.multiplicador(1)})
 	}
 	method modificarMultiplicador(nuevo_mult){multiplicador = nuevo_mult}
 	method image() = "imagenes/nave-black100.png"

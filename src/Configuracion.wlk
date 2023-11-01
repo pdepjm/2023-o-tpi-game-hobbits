@@ -35,7 +35,7 @@ object reloj {
 		position = game.at(1, game.height()-1)
 	} 
 	method posicionFinal(){
-		position = game.at(5,4)
+		position = instruccionRestart.position().left(1)
 	}
 	method pasarTiempo() {
 		tiempo = tiempo +1
@@ -76,7 +76,7 @@ object puntuacion {
 		position = reloj.position().down(1).left(1)
 	} 
 	method posicionFinal(){
-		position = reloj.position().right(2)//.rigth(3)
+		position = instruccionRestart.position().right(2)//.right(3)
 	}
 	method recibirDisparo(mult){}
 }

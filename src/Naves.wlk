@@ -1,5 +1,6 @@
 import wollok.game.*
 import powerUp.*
+
 /* 
 object naveBlack{
 

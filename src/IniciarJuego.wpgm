@@ -44,7 +44,6 @@ program juego {
 	const fondoEspacio = game.sound("sonidos/sonido_fondo.wav")
 	fondoEspacio.shouldLoop(true)
 	game.schedule(0, { fondoEspacio.play()} )
-	game.schedule(50000, { fondoEspacio.stop()} )
 	
 	//////////////////
 	game.addVisual(alien1)

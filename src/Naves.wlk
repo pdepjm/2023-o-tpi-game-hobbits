@@ -55,6 +55,8 @@ object naveBlack{
 		game.removeVisual(powerUp)
 		self.modificarMultiplicador(powerUp.multiplicador())
 		game.schedule(3000,{self.multiplicador(1)})
+		game.addVisual(powerUpx2)
+		game.schedule(3000,{game.removeVisual(powerUpx2)})
 	}
 	method modificarMultiplicador(nuevo_mult){multiplicador = nuevo_mult}
 	method image() = "imagenes/nave-black100.png"

@@ -29,3 +29,8 @@ object entorno{
 		}
 	}
 }
+
+object powerUpx2{
+	var property position = game.at(0,3)
+	method image() = "imagenes/star.png"
+}

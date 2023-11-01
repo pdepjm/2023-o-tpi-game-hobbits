@@ -39,7 +39,7 @@ object reloj {
 	}
 	method pasarTiempo() {
 		tiempo = tiempo +1
-		if(tiempo==10)
+		if(tiempo==20)
 			self.detener()
 	}
 	method iniciar(){
@@ -147,7 +147,7 @@ object interfaz {
 		keyboard.space().onPressDo( { disparo.play()})
 	}
 	method hacerAparecerPowerUps(){
-		game.onTick(3000,"powerup",{entorno.spawnearPowerUp()})
+		game.onTick(7000,"powerup",{entorno.spawnearPowerUp()})
 	}
 	method posicionesFinales(){
 		game.removeTickEvent("movimiento1")

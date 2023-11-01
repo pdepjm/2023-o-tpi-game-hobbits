@@ -51,6 +51,7 @@ program juego {
 	game.addVisual(alien2)
 	game.addVisual(alien3)
 	game.addVisual(naveBlack)
+	//game.addVisual(powerUpx2)
 	//game.addVisual(gameOver)
 	//game.addVisual(bala)
 	//game.addVisual(start)

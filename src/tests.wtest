@@ -1,6 +1,18 @@
-
-test "testX" {
-
-	assert.that(true)
-
+import enemigos.*
+import Configuracion.*
+import powerUp.*
+import Naves.*
+test "Se suma al contador el puntaje correspondiente dependiendo de los puntos del alien y el multiplicador" {
+	alien1.sumarPuntaje(2)
+	assert.equals(2,contador.puntuacion())
+}
+test "Al chocar con un meteorito, disminuye el puntaje acumulado en 1 unidad"{
+	const meteoro = new Meteorito(imagen="fuego22.png")
+	meteoro.restarPunto()
+	assert.equals(-1,contador.puntuacion())
+}
+test "Al agarrar la un potenciador de puntos, la nave modifica su estado interno multiplicador"{
+	const powerUp = new PowerUp(multiplicador=3,imagen="star.png")
+	powerUp.modificarMultiplicador(naveBlack)
+	assert.equals(3,naveBlack.multiplicador())
 }

@@ -8,6 +8,7 @@ import powerUp.*
 
 object contador {
 	var contador = 0
+	method puntuacion() = contador
 	//var property position = game.at(reloj.position().down(1).x(),reloj.position().down(1).y())
 	method text() = contador.toString()
 	/*method posicionInicial() {
@@ -164,7 +165,7 @@ object interfaz {
 		instruccionRestart.posicionFinal()
 	}
 	method restart(){
-		naveBlack.modificarMultiplicador(1)
+		naveBlack.multiplicador(1)
 		alien2.position(game.center().up(1))
 		alien1.position(alien2.position().left(3))
 		alien3.position(alien2.position().right(3))

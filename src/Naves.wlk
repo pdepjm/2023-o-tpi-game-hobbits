@@ -2,36 +2,11 @@ import wollok.game.*
 import powerUp.*
 import Configuracion.*
 
-/* 
 object naveBlack{
 
 	var property position = game.at(7,0).left(1)
-	
-	method moverseHaciaIzquierda(){
-		self.position(position.left(1))
-	}
-	
-	method moverseHaciaDerecha(){
-		self.position(position.right(1))
-	}
-	method disparar(bala){
-		if(bala.position().x() == -1 ){ 
-		//solo dispara si la bala esta en pos inicial
-		//si no esta en pos inicial, significa q esta volando todavia
-			bala.position(position.up(1))
-			game.onTick(50,"disparo",{ bala.disparo()})
-		}
-	}
-	method image() = "imagenes/nave-black100.png"
+	var property multiplicador = 1
 
-}*/
-object naveBlack{
-
-	var property position = game.at(7,0).left(1)
-	var multiplicador = 1
-	method multiplicador(n){
-		multiplicador = n
-	}
 	
 	method moverseHaciaIzquierda(){
 		self.position(position.left(1))
@@ -47,6 +22,7 @@ object naveBlack{
 			const bala1 = new Bala()
 			game.addVisual(bala1)
 			game.onCollideDo(bala1, { enemigo => bala1.impactar(enemigo,multiplicador)})
+			//game.onCollideDo(alien, { bala => alien.colisionarCon(bala,multiplicador)})
 			game.onTick(50,"disparo",{ bala1.disparo()})
 			if(bala1.position().y() == game.height()) { 
 				game.removeVisual(bala1) // cuando llega a la altura maxima del tablero vuelve a pos inicial
@@ -56,7 +32,6 @@ object naveBlack{
 	method chocarCon(colisionado){
 		colisionado.chocarConNave(self)
 	}
-	method modificarMultiplicador(nuevo_mult){multiplicador = nuevo_mult}
 	method image() = "imagenes/nave-black100.png"
 
 }
@@ -70,61 +45,20 @@ class Bala {
 	method recibirDisparo(mult){}
 	method impactar(alien,multiplicador){
 		if(game.hasVisual(self))
-		{game.removeVisual(self)}
+		{game.removeVisual(self)
+			game.removeTickEvent("disparo")
+		}
 		alien.recibirDisparo(multiplicador)
 	}
+	
+/*
+	method chocarConAlien(alien,multiplicador)
+	{
+		if(game.hasVisual(self){game.removeVisual(self)}
+		//game.removeTickEvent("disparo")
+		alien.movete()
+		contador.sumarPunto(alien.puntos()*multiplicador)
+	}*/
 	method nada(){}//={}
 	method image() = "balas/bala_fix.png" // hay q cambiarla
 } 
-
-/* 
-
-object bala {
-	// arranca fuera de tablero
-	var property position = self.posicionInicial()
-	method posicionInicial() = game.at(-1,0)
-	method disparo() {
-		position = position.up(1)
-		if(position.y() == game.height()) { 
-			position = self.posicionInicial() // cuando llega a la altura maxima del tablero vuelve a pos inicial
-			game.removeTickEvent("disparo") // reinicia el tick, sino se acoplan
-			}
-	}
-	method nada(){}//={}
-	method image() = "balas/bala_blanca2.png" // hay q cambiarla
-} 
-
-
-object naveWhite{
-
-	var property position = game.at(0,0)
-	//method position() = game.center()
-	
-	method moverseHaciaIzquierda(){
-		self.position(position.left(1))
-	}
-	
-	method moverseHaciaDerecha(){
-		self.position(position.right(1))
-	}
-	
-	method image() = "imagenes/nave-white.png"
-
-}
-object nave2 {
-
-	var property position = game.at(0,0)
-	//method position() = game.center()
-	
-	method moverseHaciaIzquierda(){
-		self.position(position.left(1))
-	}
-	
-	method moverseHaciaDerecha(){
-		self.position(position.right(1))
-	}
-	
-	method image() = "imagenes/nave.png"
-
-}
-*/

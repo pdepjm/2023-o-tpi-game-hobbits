@@ -23,11 +23,14 @@ class PowerUp inherits Colisionado{
 	{
 		game.removeVisual(self)
 		mejorarNave.play()
-		//game.removeTickEvent("bajar")
-		nave.modificarMultiplicador(self.multiplicador())
+		game.removeTickEvent("bajar")
+		self.modificarMultiplicador(nave)
 		game.schedule(3000,{nave.multiplicador(1)})
 		game.addVisual(powerUpx2)
 		game.schedule(3000,{game.removeVisual(powerUpx2)})
+	}
+	method modificarMultiplicador(nave){
+		nave.multiplicador(self.multiplicador())
 	}
 }
 class Meteorito inherits Colisionado{
@@ -35,10 +38,11 @@ class Meteorito inherits Colisionado{
 	override method chocarConNave(nave)
 	{
 		game.removeVisual(self)
-		//game.removeTickEvent("bajar1")
-		contador.sumarPunto(-1)
 		meteoro.play()
+		game.removeTickEvent("bajar1")
+		self.restarPunto()
 	}
+	method restarPunto() {contador.sumarPunto(-1)}
 	
 }
 

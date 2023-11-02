@@ -24,6 +24,7 @@ class Alien {
     	self.movete()
     	if(vida <= 0){
     		//self.morir()
+    		game.sound("sonidos/sonido_alien_morir.wav").play()
     		contador.sumarPunto(puntos*multiplicador)
     	}
     }

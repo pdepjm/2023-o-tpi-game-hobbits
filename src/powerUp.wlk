@@ -1,45 +1,54 @@
 import wollok.game.*
 import Naves.*
 import sonidos.*
+import Configuracion.*
 
-class PowerUp{
+class Colisionado{
 	var property position = game.at(self.aleatorioHorizontal(),6)
 	var imagen
 	method aleatorioHorizontal() = 0.randomUpTo(13)
 	method recibirDisparo(mult) {}
-	
+	method chocarConNave(nave){}
 	method bajar(){
 		position = position.down(1)
 	}
-	
-	
 	method image() = imagen
+	
 }
-class MasPuntos inherits PowerUp{
+
+class PowerUp inherits Colisionado{
+	
 	var property multiplicador
+	override method chocarConNave(nave)
+	{
+		game.removeVisual(self)
+		mejorarNave.play()
+		//game.removeTickEvent("bajar")
+		nave.modificarMultiplicador(self.multiplicador())
+		game.schedule(3000,{nave.multiplicador(1)})
+		game.addVisual(powerUpx2)
+		game.schedule(3000,{game.removeVisual(powerUpx2)})
+	}
 }
-class Meteorito{
-	var property position = game.at(self.aleatorioHorizontal(),6)
-	var imagen
-	method aleatorioHorizontal() = 0.randomUpTo(13)
-	method recibirDisparo(mult) {}
-	method multiplicador() = 0
-	method bajar(){
-		position = position.down(1)
+class Meteorito inherits Colisionado{
+	
+	override method chocarConNave(nave)
+	{
+		game.removeVisual(self)
+		//game.removeTickEvent("bajar1")
+		contador.sumarPunto(-1)
 	}
 	
-	
-	method image() = imagen
 }
 
 object entorno{
 	method recibirDisparo(mult) {}
 	method spawnearPowerUp(){
-		const powerUp = new MasPuntos(multiplicador=2,imagen="imagenes/star.png")
+		const powerUp = new PowerUp(multiplicador=2,imagen="imagenes/star.png")
 		game.addVisual(powerUp)
-		game.whenCollideDo(naveBlack, 
-			{powerUp => naveBlack.recibirPowerUp(powerUp)
-			mejorarNave.play()
+		game.onCollideDo(naveBlack, 
+			{colisionado => naveBlack.chocarCon(colisionado)
+			
 		})
 		//game.whenCollideDo(naveBlack, {=>mejorarNave.play()})
 		game.onTick(200,"bajar",{powerUp.bajar()})
@@ -52,7 +61,7 @@ object entorno{
 	{
 		const meteorito = new Meteorito(imagen="imagenes/fuego22.png")
 		game.addVisual(meteorito)
-		game.whenCollideDo(naveBlack, {meteorito => naveBlack.recibirMeteorito(meteorito)})
+		game.onCollideDo(naveBlack, {colisionado => naveBlack.chocarCon(colisionado)})
 		//game.whenCollideDo(naveBlack, {=>mejorarNave.play()})
 		game.onTick(200,"bajar1",{meteorito.bajar()})
 		if(meteorito.position().y() == 0) { 

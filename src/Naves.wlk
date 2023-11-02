@@ -46,25 +46,15 @@ object naveBlack{
 	method disparar(){
 			const bala1 = new Bala()
 			game.addVisual(bala1)
-			game.whenCollideDo(bala1, { enemigo => bala1.impactar(enemigo,multiplicador)})
+			game.onCollideDo(bala1, { enemigo => bala1.impactar(enemigo,multiplicador)})
 			game.onTick(50,"disparo",{ bala1.disparo()})
 			if(bala1.position().y() == game.height()) { 
 				game.removeVisual(bala1) // cuando llega a la altura maxima del tablero vuelve a pos inicial
 				game.removeTickEvent("disparo") // reinicia el tick, sino se acoplan
 			}
 	}
-	method recibirPowerUp(powerUp){
-		game.removeVisual(powerUp)
-		//game.removeTickEvent("bajar")
-		self.modificarMultiplicador(powerUp.multiplicador())
-		game.schedule(3000,{self.multiplicador(1)})
-		game.addVisual(powerUpx2)
-		game.schedule(3000,{game.removeVisual(powerUpx2)})
-	}
-	method recibirMeteorito(meteorito){
-		game.removeVisual(meteorito)
-		//game.removeTickEvent("bajar1")
-		contador.sumarPunto(-1)
+	method chocarCon(colisionado){
+		colisionado.chocarConNave(self)
 	}
 	method modificarMultiplicador(nuevo_mult){multiplicador = nuevo_mult}
 	method image() = "imagenes/nave-black100.png"

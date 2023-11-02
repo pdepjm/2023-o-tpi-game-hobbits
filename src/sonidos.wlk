@@ -1,14 +1,14 @@
 import wollok.game.*
-object disparo{
-	
-	method play(){
-		game.sound("sonidos/sonido_bala.wav").play()
-	}
-}
 
-object mejorarNave{
+class Sonido{
 	
+	var nobreSonido
 	method play(){
-		game.sound("sonidos/PowerUp2.wav").play()
+		game.sound("sonidos/" + nobreSonido +".wav").play()
 	}
-}
+} 
+
+const disparo = new Sonido  (nobreSonido = "sonido_bala")
+const mejorarNave = new Sonido  (nobreSonido = "PowerUp2")
+const meteoro = new Sonido  (nobreSonido = "meteoro")
+const alien = new Sonido  (nobreSonido = "sonidoAlien2")

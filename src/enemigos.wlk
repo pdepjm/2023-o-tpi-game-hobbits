@@ -2,6 +2,7 @@ import Naves.*
 import wollok.game.*
 import Configuracion.*
 import powerUp.*
+import sonidos.*
 
 class Alien {
 	//var property position = game.at(0,10) ORIGINAL
@@ -24,7 +25,7 @@ class Alien {
     	self.movete()
     	if(vida <= 0){
     		//self.morir()
-    		game.sound("sonidos/sonido_alien_morir.wav").play()
+    		alien.play()
     		contador.sumarPunto(puntos*multiplicador)
     	}
     }

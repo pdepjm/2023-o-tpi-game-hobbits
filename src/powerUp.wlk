@@ -37,6 +37,7 @@ class Meteorito inherits Colisionado{
 		game.removeVisual(self)
 		//game.removeTickEvent("bajar1")
 		contador.sumarPunto(-1)
+		meteoro.play()
 	}
 	
 }

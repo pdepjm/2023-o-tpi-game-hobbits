@@ -25,6 +25,7 @@ object contador {
 		contador = 0
 	}
 	method recibirDisparo(mult){}
+	method textColor() = paleta.blanco()
 }
 
 object reloj {
@@ -56,6 +57,7 @@ object reloj {
 		interfaz.posicionesFinales()
 	}
 	method recibirDisparo(mult){}
+	method textColor() = paleta.blanco()
 }
 
 object tiempo_ {
@@ -67,6 +69,7 @@ object tiempo_ {
 		self.position(game.at(8,8))
 	}
 	method recibirDisparo(mult){}
+	method textColor() = paleta.blanco()
 }
 
 object puntuacion {
@@ -80,6 +83,7 @@ object puntuacion {
 		position = instruccionRestart.position().right(2)//.right(3)
 	}
 	method recibirDisparo(mult){}
+	method textColor() = paleta.blanco()
 }
 
 object instruccion {
@@ -95,7 +99,7 @@ PRESS ENTER TO START"
 	method quitar(){
 		game.removeVisual(self)
 	} 
-	
+	method textColor() = paleta.blanco()
 }
 
 object gameOver{
@@ -121,6 +125,7 @@ object instruccionRestart {
 		game.removeVisual(self)
 	} 
 	method recibirDisparo(mult){}
+	method textColor() = paleta.blanco()
 }
 
 object interfaz {
@@ -193,4 +198,8 @@ object start {
 		game.addVisual(self)
 	}
 	method image() = "imagenes/start1.png"
+}
+
+object paleta {
+	const property blanco = "FFFFFF"
 }
